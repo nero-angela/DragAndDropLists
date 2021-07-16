@@ -31,6 +31,7 @@ class DragAndDropListExpansion implements DragAndDropListExpansionInterface {
   final Widget? lastTarget;
   final bool isRotateTrailing;
   final bool isRotateLeading;
+  final bool isThreeLine;
   final double? horizontalTitleGap;
   final double? minLeadingWidth;
 
@@ -62,6 +63,7 @@ class DragAndDropListExpansion implements DragAndDropListExpansionInterface {
     this.disableTopAndBottomBorders = false,
     this.isRotateTrailing = true,
     this.isRotateLeading = false,
+    this.isThreeLine = false,
     this.horizontalTitleGap,
     this.minLeadingWidth,
   }) {
@@ -84,6 +86,7 @@ class DragAndDropListExpansion implements DragAndDropListExpansionInterface {
       onExpansionChanged: _onSetExpansion,
       key: _expansionKey,
       children: contents,
+      isThreeLine: isThreeLine,
       isRotateTrailing: isRotateTrailing,
       isRotateLeading: isRotateLeading,
       horizontalTitleGap: horizontalTitleGap,
