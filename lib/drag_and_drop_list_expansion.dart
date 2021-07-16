@@ -29,6 +29,7 @@ class DragAndDropListExpansion implements DragAndDropListExpansionInterface {
   final List<DragAndDropItem>? children;
   final Widget? contentsWhenEmpty;
   final Widget? lastTarget;
+  final Border? border;
   final bool isRotateTrailing;
   final bool isRotateLeading;
   final bool isThreeLine;
@@ -53,6 +54,7 @@ class DragAndDropListExpansion implements DragAndDropListExpansionInterface {
     this.subtitle,
     this.trailing,
     this.leading,
+    this.border,
     this.initiallyExpanded = false,
     this.backgroundColor,
     this.onExpansionChanged,
@@ -80,6 +82,7 @@ class DragAndDropListExpansion implements DragAndDropListExpansionInterface {
       subtitle: subtitle,
       trailing: trailing,
       leading: leading,
+      border: border,
       disableTopAndBottomBorders: disableTopAndBottomBorders,
       backgroundColor: backgroundColor,
       initiallyExpanded: initiallyExpanded,

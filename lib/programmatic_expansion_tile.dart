@@ -33,6 +33,7 @@ class ProgrammaticExpansionTile extends StatefulWidget {
     this.leading,
     required this.title,
     this.subtitle,
+    this.border,
     this.isThreeLine = false,
     this.backgroundColor,
     this.onExpansionChanged,
@@ -67,6 +68,9 @@ class ProgrammaticExpansionTile extends StatefulWidget {
   ///
   /// Typically a [Text] widget.
   final bool isThreeLine;
+
+  /// ListTile container border
+  final Border? border;
 
   /// Called when the tile expands or collapses.
   ///
@@ -209,7 +213,7 @@ class ProgrammaticExpansionTileState extends State<ProgrammaticExpansionTile>
       decoration: BoxDecoration(
         color: _backgroundColor.value ?? Colors.transparent,
         border: setBorder
-            ? Border(
+            ? widget.border ?? Border(
                 top: BorderSide(color: borderSideColor),
                 bottom: BorderSide(color: borderSideColor),
               )
