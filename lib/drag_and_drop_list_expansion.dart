@@ -29,6 +29,10 @@ class DragAndDropListExpansion implements DragAndDropListExpansionInterface {
   final List<DragAndDropItem>? children;
   final Widget? contentsWhenEmpty;
   final Widget? lastTarget;
+  final bool isRotateTrailing;
+  final bool isRotateLeading;
+  final double? horizontalTitleGap;
+  final double? minLeadingWidth;
 
   /// Whether or not this item can be dragged.
   /// Set to true if it can be reordered.
@@ -56,6 +60,10 @@ class DragAndDropListExpansion implements DragAndDropListExpansionInterface {
     required this.listKey,
     this.canDrag = true,
     this.disableTopAndBottomBorders = false,
+    this.isRotateTrailing = true,
+    this.isRotateLeading = false,
+    this.horizontalTitleGap,
+    this.minLeadingWidth,
   }) {
     _expanded.value = initiallyExpanded;
   }
@@ -76,6 +84,10 @@ class DragAndDropListExpansion implements DragAndDropListExpansionInterface {
       onExpansionChanged: _onSetExpansion,
       key: _expansionKey,
       children: contents,
+      isRotateTrailing: isRotateTrailing,
+      isRotateLeading: isRotateLeading,
+      horizontalTitleGap: horizontalTitleGap,
+      minLeadingWidth: minLeadingWidth,
     );
 
     if (params.listDecoration != null) {

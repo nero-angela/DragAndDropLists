@@ -40,6 +40,10 @@ class ProgrammaticExpansionTile extends StatefulWidget {
     this.trailing,
     this.initiallyExpanded = false,
     this.disableTopAndBottomBorders = false,
+    this.isRotateTrailing = true,
+    this.isRotateLeading = false,
+    this.horizontalTitleGap,
+    this.minLeadingWidth,
   }) : super(key: key);
 
   final Key listKey;
@@ -87,6 +91,18 @@ class ProgrammaticExpansionTile extends StatefulWidget {
 
   /// Disable to borders displayed at the top and bottom when expanded
   final bool disableTopAndBottomBorders;
+
+  /// Is rotate trailing widget when expansion changed
+  final bool isRotateTrailing;
+
+  /// Is rotate leading widget when expansion changed
+  final bool isRotateLeading;
+
+  /// ListTile horizontalTitleGap
+  final double? horizontalTitleGap;
+
+  /// ListTile minLeadingWidth
+  final double? minLeadingWidth;
 
   @override
   ProgrammaticExpansionTileState createState() =>
@@ -205,17 +221,25 @@ class ProgrammaticExpansionTileState extends State<ProgrammaticExpansionTile>
           ListTileTheme.merge(
             iconColor: _iconColor.value,
             textColor: _headerColor.value,
+            horizontalTitleGap: widget.horizontalTitleGap,
+            minLeadingWidth: widget.minLeadingWidth,
             child: ListTile(
               onTap: toggle,
-              leading: widget.leading,
+              leading: widget.isRotateLeading
+                  ? RotationTransition(
+                      turns: _iconTurns,
+                      child: widget.leading ?? const Icon(Icons.expand_more),
+                    )
+                  : widget.leading ?? const Icon(Icons.expand_more),
               title: widget.title,
               subtitle: widget.subtitle,
               isThreeLine: widget.isThreeLine,
-              trailing: widget.trailing ??
-                  RotationTransition(
-                    turns: _iconTurns,
-                    child: const Icon(Icons.expand_more),
-                  ),
+              trailing: widget.isRotateTrailing
+                  ? RotationTransition(
+                      turns: _iconTurns,
+                      child: widget.trailing ?? const Icon(Icons.expand_more),
+                    )
+                  : widget.trailing ?? const Icon(Icons.expand_more),
             ),
           ),
           ClipRect(
