@@ -45,8 +45,7 @@ class DragAndDropListExpansion implements DragAndDropListExpansionInterface {
   final bool disableTopAndBottomBorders;
 
   ValueNotifier<bool> _expanded = ValueNotifier<bool>(true);
-  GlobalKey<ProgrammaticExpansionTileState> _expansionKey =
-      GlobalKey<ProgrammaticExpansionTileState>();
+  GlobalKey<ProgrammaticExpansionTileState> _expansionKey = GlobalKey<ProgrammaticExpansionTileState>();
 
   DragAndDropListExpansion({
     this.children,
@@ -143,8 +142,7 @@ class DragAndDropListExpansion implements DragAndDropListExpansionInterface {
     return toReturn;
   }
 
-  List<Widget> _generateDragAndDropListInnerContents(
-      DragAndDropBuilderParameters parameters) {
+  List<Widget> _generateDragAndDropListInnerContents(DragAndDropBuilderParameters parameters) {
     var contents = <Widget>[];
     if (children != null && children!.isNotEmpty) {
       for (int i = 0; i < children!.length; i++) {
@@ -156,37 +154,39 @@ class DragAndDropListExpansion implements DragAndDropListExpansionInterface {
           contents.add(parameters.itemDivider!);
         }
       }
-      contents.add(DragAndDropItemTarget(
+    }
+    // else {
+    //   contents.add(
+    //     contentsWhenEmpty ??
+    //         Text(
+    //           'Empty list',
+    //           style: TextStyle(
+    //             fontStyle: FontStyle.italic,
+    //           ),
+    //         ),
+    //   );
+    // }
+    contents.add(
+      DragAndDropItemTarget(
         parent: this,
         parameters: parameters,
         onReorderOrAdd: parameters.onItemDropOnLastTarget!,
+        isListEmpty: children == null || children!.isEmpty,
+        contentWhenEmpty: contentsWhenEmpty ??
+            Center(
+              child: Text(
+                'Empty list',
+                style: TextStyle(
+                  fontStyle: FontStyle.italic,
+                ),
+              ),
+            ),
         child: lastTarget ??
             Container(
               height: parameters.lastItemTargetHeight,
             ),
-      ));
-    } else {
-      contents.add(
-        contentsWhenEmpty ??
-            Text(
-              'Empty list',
-              style: TextStyle(
-                fontStyle: FontStyle.italic,
-              ),
-            ),
-      );
-      contents.add(
-        DragAndDropItemTarget(
-          parent: this,
-          parameters: parameters,
-          onReorderOrAdd: parameters.onItemDropOnLastTarget!,
-          child: lastTarget ??
-              Container(
-                height: parameters.lastItemTargetHeight,
-              ),
-        ),
-      );
-    }
+      ),
+    );
     return contents;
   }
 

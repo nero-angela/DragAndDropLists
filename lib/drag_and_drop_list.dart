@@ -95,9 +95,7 @@ class DragAndDropList implements DragAndDropListInterface {
     }
 
     return Container(
-      width: params.axis == Axis.vertical
-          ? double.infinity
-          : params.listWidth - params.listPadding!.horizontal,
+      width: params.axis == Axis.vertical ? double.infinity : params.listWidth - params.listPadding!.horizontal,
       decoration: decoration ?? params.listDecoration,
       child: Column(
         mainAxisSize: MainAxisSize.min,
@@ -107,8 +105,7 @@ class DragAndDropList implements DragAndDropListInterface {
     );
   }
 
-  List<Widget> _generateDragAndDropListInnerContents(
-      DragAndDropBuilderParameters parameters) {
+  List<Widget> _generateDragAndDropListInnerContents(DragAndDropBuilderParameters parameters) {
     var contents = <Widget>[];
     if (leftSide != null) {
       contents.add(leftSide!);
@@ -133,6 +130,8 @@ class DragAndDropList implements DragAndDropListInterface {
         parent: this,
         parameters: parameters,
         onReorderOrAdd: parameters.onItemDropOnLastTarget!,
+        isListEmpty: false,
+        contentWhenEmpty: Container(),
         child: lastTarget ??
             Container(
               height: parameters.lastItemTargetHeight,
@@ -158,17 +157,20 @@ class DragAndDropList implements DragAndDropListInterface {
             child: Column(
               mainAxisSize: MainAxisSize.max,
               children: <Widget>[
-                contentsWhenEmpty ??
-                    Text(
-                      'Empty list',
-                      style: TextStyle(
-                        fontStyle: FontStyle.italic,
-                      ),
-                    ),
                 DragAndDropItemTarget(
                   parent: this,
                   parameters: parameters,
                   onReorderOrAdd: parameters.onItemDropOnLastTarget!,
+                  isListEmpty: children.isEmpty,
+                  contentWhenEmpty: contentsWhenEmpty ??
+                      Center(
+                        child: Text(
+                          'Empty list',
+                          style: TextStyle(
+                            fontStyle: FontStyle.italic,
+                          ),
+                        ),
+                      ),
                   child: lastTarget ??
                       Container(
                         height: parameters.lastItemTargetHeight,

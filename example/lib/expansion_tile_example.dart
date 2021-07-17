@@ -28,7 +28,7 @@ class _ListTileExample extends State<ExpansionTileExample> {
     _lists = List.generate(10, (outerIndex) {
       return InnerList(
         name: outerIndex.toString(),
-        children: List.generate(6, (innerIndex) => '$outerIndex.$innerIndex'),
+        children: List.generate(1, (innerIndex) => '$outerIndex.$innerIndex'),
       );
     });
   }
