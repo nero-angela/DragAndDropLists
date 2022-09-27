@@ -109,18 +109,14 @@ class ProgrammaticExpansionTile extends StatefulWidget {
   final double? minLeadingWidth;
 
   @override
-  ProgrammaticExpansionTileState createState() =>
-      ProgrammaticExpansionTileState();
+  ProgrammaticExpansionTileState createState() => ProgrammaticExpansionTileState();
 }
 
 class ProgrammaticExpansionTileState extends State<ProgrammaticExpansionTile>
     with SingleTickerProviderStateMixin {
-  static final Animatable<double> _easeOutTween =
-      CurveTween(curve: Curves.easeOut);
-  static final Animatable<double> _easeInTween =
-      CurveTween(curve: Curves.easeIn);
-  static final Animatable<double> _halfTween =
-      Tween<double>(begin: 0.0, end: 0.5);
+  static final Animatable<double> _easeOutTween = CurveTween(curve: Curves.easeOut);
+  static final Animatable<double> _easeInTween = CurveTween(curve: Curves.easeIn);
+  static final Animatable<double> _halfTween = Tween<double>(begin: 0.0, end: 0.5);
 
   final ColorTween _borderColorTween = ColorTween();
   final ColorTween _headerColorTween = ColorTween();
@@ -146,19 +142,17 @@ class ProgrammaticExpansionTileState extends State<ProgrammaticExpansionTile>
     _borderColor = _controller.drive(_borderColorTween.chain(_easeOutTween));
     _headerColor = _controller.drive(_headerColorTween.chain(_easeInTween));
     _iconColor = _controller.drive(_iconColorTween.chain(_easeInTween));
-    _backgroundColor =
-        _controller.drive(_backgroundColorTween.chain(_easeOutTween));
+    _backgroundColor = _controller.drive(_backgroundColorTween.chain(_easeOutTween));
 
-    _isExpanded = PageStorage.of(context)
-            ?.readState(context, identifier: widget.listKey) as bool? ??
+    _isExpanded = PageStorage.of(context)?.readState(context, identifier: widget.listKey)
+            as bool? ??
         widget.initiallyExpanded;
     if (_isExpanded) _controller.value = 1.0;
 
     // Schedule the notification that widget has changed for after init
     // to ensure that the parent widget maintains the correct state
     SchedulerBinding.instance.addPostFrameCallback((Duration duration) {
-      if (widget.onExpansionChanged != null &&
-          _isExpanded != widget.initiallyExpanded) {
+      if (widget.onExpansionChanged != null && _isExpanded != widget.initiallyExpanded) {
         widget.onExpansionChanged!(_isExpanded);
       }
     });
@@ -213,10 +207,11 @@ class ProgrammaticExpansionTileState extends State<ProgrammaticExpansionTile>
       decoration: BoxDecoration(
         color: _backgroundColor.value ?? Colors.transparent,
         border: setBorder
-            ? widget.border ?? Border(
-                top: BorderSide(color: borderSideColor),
-                bottom: BorderSide(color: borderSideColor),
-              )
+            ? widget.border ??
+                Border(
+                  top: BorderSide(color: borderSideColor),
+                  bottom: BorderSide(color: borderSideColor),
+                )
             : null,
       ),
       child: Column(
@@ -263,11 +258,13 @@ class ProgrammaticExpansionTileState extends State<ProgrammaticExpansionTile>
     _borderColorTween.end = theme.dividerColor;
     _headerColorTween
       ..begin = theme.textTheme.subtitle1!.color
-      ..end = theme.accentColor;
+      ..end = theme.colorScheme.secondary;
     _iconColorTween
       ..begin = theme.unselectedWidgetColor
-      ..end = theme.accentColor;
-    _backgroundColorTween.end = widget.backgroundColor;
+      ..end = theme.colorScheme.secondary;
+    _backgroundColorTween
+      ..begin = widget.backgroundColor
+      ..end = widget.backgroundColor;
     super.didChangeDependencies();
   }
 
