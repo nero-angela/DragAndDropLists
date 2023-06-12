@@ -1,8 +1,5 @@
-import 'package:drag_and_drop_lists/drag_and_drop_item.dart';
 import 'package:drag_and_drop_lists/drag_and_drop_lists.dart';
-import 'package:example/navigation_drawer.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
 
 class FixedExample extends StatefulWidget {
   FixedExample({Key? key}) : super(key: key);
@@ -28,9 +25,8 @@ class _FixedExample extends State<FixedExample> {
             ),
             Padding(
               padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 5),
-              child: Text(index % 4 == 0
-                  ? 'Header $index : Non-Draggable'
-                  : 'Header $index'),
+              child: Text(
+                  index % 4 == 0 ? 'Header $index : Non-Draggable' : 'Header $index'),
             ),
             Expanded(
               flex: 1,
@@ -61,7 +57,6 @@ class _FixedExample extends State<FixedExample> {
       appBar: AppBar(
         title: Text('Fixed Items'),
       ),
-      drawer: NavigationDrawer(),
       body: DragAndDropLists(
         children: _contents,
         onItemReorder: _onItemReorder,
@@ -70,8 +65,7 @@ class _FixedExample extends State<FixedExample> {
     );
   }
 
-  _onItemReorder(
-      int oldItemIndex, int oldListIndex, int newItemIndex, int newListIndex) {
+  _onItemReorder(int oldItemIndex, int oldListIndex, int newItemIndex, int newListIndex) {
     setState(() {
       var movedItem = _contents[oldListIndex].children.removeAt(oldItemIndex);
       _contents[newListIndex].children.insert(newItemIndex, movedItem);

@@ -63,7 +63,6 @@ class _SliverExample extends State<SliverExample> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      drawer: NavigationDrawer(),
       body: CustomScrollView(
         controller: _scrollController,
         slivers: <Widget>[

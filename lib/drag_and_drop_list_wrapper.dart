@@ -3,8 +3,6 @@ import 'package:drag_and_drop_lists/drag_and_drop_list_interface.dart';
 import 'package:drag_and_drop_lists/drag_handle.dart';
 import 'package:drag_and_drop_lists/measure_size.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/rendering.dart';
-import 'package:flutter/widgets.dart';
 
 class DragAndDropListWrapper extends StatefulWidget {
   final DragAndDropListInterface dragAndDropList;
@@ -44,8 +42,7 @@ class _DragAndDropListWrapper extends State<DragAndDropListWrapper>
           child: widget.parameters.listDragHandle,
         );
 
-        Widget feedback =
-            buildFeedbackWithHandle(dragAndDropListContents, dragHandle);
+        Widget feedback = buildFeedbackWithHandle(dragAndDropListContents, dragHandle);
 
         draggable = MeasureSize(
           onSizeChange: (size) {
@@ -94,8 +91,7 @@ class _DragAndDropListWrapper extends State<DragAndDropListWrapper>
           data: widget.dragAndDropList,
           axis: draggableAxis(),
           child: dragAndDropListContents,
-          feedback:
-              buildFeedbackWithoutHandle(context, dragAndDropListContents),
+          feedback: buildFeedbackWithoutHandle(context, dragAndDropListContents),
           childWhenDragging: Container(),
           onDragStarted: () => _setDragging(true),
           onDragCompleted: () => _setDragging(false),
@@ -107,8 +103,7 @@ class _DragAndDropListWrapper extends State<DragAndDropListWrapper>
           data: widget.dragAndDropList,
           axis: draggableAxis(),
           child: dragAndDropListContents,
-          feedback:
-              buildFeedbackWithoutHandle(context, dragAndDropListContents),
+          feedback: buildFeedbackWithoutHandle(context, dragAndDropListContents),
           childWhenDragging: Container(),
           onDragStarted: () => _setDragging(true),
           onDragCompleted: () => _setDragging(false),
@@ -122,9 +117,7 @@ class _DragAndDropListWrapper extends State<DragAndDropListWrapper>
 
     var rowOrColumnChildren = <Widget>[
       AnimatedSize(
-        duration:
-            Duration(milliseconds: widget.parameters.listSizeAnimationDuration),
-        vsync: this,
+        duration: Duration(milliseconds: widget.parameters.listSizeAnimationDuration),
         alignment: widget.parameters.axis == Axis.vertical
             ? Alignment.bottomCenter
             : Alignment.centerLeft,
@@ -136,10 +129,8 @@ class _DragAndDropListWrapper extends State<DragAndDropListWrapper>
                       padding: widget.parameters.axis == Axis.vertical
                           ? EdgeInsets.all(0)
                           : EdgeInsets.symmetric(
-                              horizontal:
-                                  widget.parameters.listPadding!.horizontal),
-                      child:
-                          _hoveredDraggable!.generateWidget(widget.parameters),
+                              horizontal: widget.parameters.listPadding!.horizontal),
+                      child: _hoveredDraggable!.generateWidget(widget.parameters),
                     ),
               )
             : Container(),
@@ -171,8 +162,8 @@ class _DragAndDropListWrapper extends State<DragAndDropListWrapper>
             onWillAccept: (incoming) {
               bool accept = true;
               if (widget.parameters.listOnWillAccept != null) {
-                accept = widget.parameters.listOnWillAccept!(
-                    incoming, widget.dragAndDropList);
+                accept =
+                    widget.parameters.listOnWillAccept!(incoming, widget.dragAndDropList);
               }
               if (accept && mounted) {
                 setState(() {
@@ -193,8 +184,7 @@ class _DragAndDropListWrapper extends State<DragAndDropListWrapper>
             onAccept: (incoming) {
               if (mounted) {
                 setState(() {
-                  widget.parameters.onListReordered!(
-                      incoming, widget.dragAndDropList);
+                  widget.parameters.onListReordered!(incoming, widget.dragAndDropList);
                   _hoveredDraggable = null;
                 });
               }
@@ -223,8 +213,7 @@ class _DragAndDropListWrapper extends State<DragAndDropListWrapper>
     return toReturn;
   }
 
-  Material buildFeedbackWithHandle(
-      Widget dragAndDropListContents, Widget dragHandle) {
+  Material buildFeedbackWithHandle(Widget dragAndDropListContents, Widget dragHandle) {
     return Material(
       color: Colors.transparent,
       child: Container(
@@ -261,10 +250,8 @@ class _DragAndDropListWrapper extends State<DragAndDropListWrapper>
       BuildContext context, Widget dragAndDropListContents) {
     return Container(
       width: widget.parameters.axis == Axis.vertical
-          ? (widget.parameters.listDraggingWidth ??
-              MediaQuery.of(context).size.width)
-          : (widget.parameters.listDraggingWidth ??
-              widget.parameters.listWidth),
+          ? (widget.parameters.listDraggingWidth ?? MediaQuery.of(context).size.width)
+          : (widget.parameters.listDraggingWidth ?? widget.parameters.listWidth),
       child: Material(
         color: Colors.transparent,
         child: Container(
@@ -322,8 +309,7 @@ class _DragAndDropListWrapper extends State<DragAndDropListWrapper>
         _dragging = dragging;
       });
       if (widget.parameters.onListDraggingChanged != null) {
-        widget.parameters.onListDraggingChanged!(
-            widget.dragAndDropList, dragging);
+        widget.parameters.onListDraggingChanged!(widget.dragAndDropList, dragging);
       }
     }
   }
